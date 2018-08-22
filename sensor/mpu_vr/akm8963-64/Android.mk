@@ -1,0 +1,86 @@
+ifeq (${TARGET_ARCH},arm64)
+ifneq ($(TARGET_SIMULATOR),true)
+
+LOCAL_PATH:= $(call my-dir)
+
+SMARTCOMPASS_LIB=libSmartCompass
+
+ifeq ($(strip $(BOARD_SENSOR_COMPASS_AK09911)), true)
+AKMD_DEVICE_TYPE := 9911
+else
+AKMD_DEVICE_TYPE := 8963
+endif
+AKMD_ACC_AOT := yes
+
+include $(CLEAR_VARS)
+LOCAL_C_INCLUDES := \
+	$(LOCAL_PATH)/$(SMARTCOMPASS_LIB)
+
+LOCAL_SRC_FILES:= \
+	AKMD_Driver.c \
+	DispMessage.c \
+	FileIO.c \
+	Measure.c \
+	main.c \
+	misc.c
+	
+LOCAL_MODULE  := akmd
+
+ifeq ($(AKMD_DEVICE_TYPE), 8963)
+LOCAL_SRC_FILES += FST_AK8963.c
+LOCAL_CFLAGS  += -DAKMD_FOR_AK8963
+LOCAL_LDFLAGS += -L$(LOCAL_PATH)/$(SMARTCOMPASS_LIB) -lAK8963wPGplus
+
+else ifeq ($(AKMD_DEVICE_TYPE), 8975)
+LOCAL_SRC_FILES += FST_AK8975.c
+LOCAL_CFLAGS  += -DAKMD_FOR_AK8975
+LOCAL_LDFLAGS += -L$(LOCAL_PATH)/$(SMARTCOMPASS_LIB) -lAK8975wPGplus
+
+else ifeq ($(AKMD_DEVICE_TYPE), 9911)
+LOCAL_SRC_FILES += FST_AK09911.c
+LOCAL_CFLAGS  += -DAKMD_FOR_AK09911
+LOCAL_CFLAGS  += -DAKMD_AK099XX
+LOCAL_LDFLAGS += -L$(LOCAL_PATH)/$(SMARTCOMPASS_LIB) -lAK09911wPGplus
+
+else
+$(error AKMD_DEVICE_TYPE is not defined)
+endif
+
+
+### Acceleration Sensors 
+ifeq ($(AKMD_ACC_AOT),yes)
+#LOCAL_CFLAGS += -DAKMD_ACC_EXTERNAL
+#LOCAL_SRC_FILES += Acc_aot.c
+else
+
+ifeq ($(AKMD_SENSOR_ACC),adxl346)
+LOCAL_CFLAGS += -DAKMD_ACC_ADXL346
+LOCAL_SRC_FILES += Acc_adxl34x.c
+
+else ifeq ($(AKMD_SENSOR_ACC),kxtf9)
+LOCAL_CFLAGS += -DAKMD_ACC_KXTF9
+LOCAL_SRC_FILES += Acc_kxtf9.c
+
+else ifeq ($(AKMD_SENSOR_ACC),dummy)
+LOCAL_CFLAGS += -DAKMD_ACC_DUMMY
+LOCAL_SRC_FILES += Acc_dummy.c
+
+else
+$(error AKMD_SENSOR_ACC is not defined)
+endif
+
+endif
+
+LOCAL_CFLAGS += -Wall -Wextra
+#LOCAL_CFLAGS += -DENABLE_AKMDEBUG=1
+#LOCAL_CFLAGS += -DAKM_LOG_ENABLE
+
+LOCAL_MODULE_TAGS := optional
+LOCAL_FORCE_STATIC_EXECUTABLE := false
+LOCAL_STATIC_LIBRARIES :=
+LOCAL_SHARED_LIBRARIES := libc libm libutils libcutils
+include $(BUILD_EXECUTABLE)
+
+
+endif  # TARGET_SIMULATOR != true
+endif  # TARGET_ARCH := arm64 
