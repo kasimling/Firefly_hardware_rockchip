@@ -1,6 +1,6 @@
 #ifndef _rk_graphics_version_h_
 #define _rk_graphics_version_h_
 
-#define RK_GRAPHICS_VER "version:bb9e4f5+2018-08-18 07:58:03"
+#define RK_GRAPHICS_VER "version:a3f6987+2018-08-31 13:41:44"
 
 #endif // VERSION_H

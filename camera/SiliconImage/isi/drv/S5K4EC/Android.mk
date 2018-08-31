@@ -20,7 +20,7 @@ LOCAL_C_INCLUDES += \
 LOCAL_CFLAGS := -Wall -Wextra -std=c99   -Wformat-nonliteral -g -O0 -DDEBUG -pedantic
 LOCAL_CFLAGS += -DLINUX  -DMIPI_USE_CAMERIC -DHAL_MOCKUP -DCAM_ENGINE_DRAW_DOM_ONLY -D_FILE_OFFSET_BITS=64 -DHAS_STDINT_H
 #LOCAL_STATIC_LIBRARIES := libisp_ebase libisp_oslayer libisp_common libisp_hal libisp_cameric_reg_drv libisp_cameric_drv libisp_isi
-LOCAL_SHARED_LIBRARIES := libutils libcutils libion libisp_silicomimageisp_api
+LOCAL_SHARED_LIBRARIES := libutils libcutils libion libisp_silicomimageisp_api liblog
 LOCAL_MODULE:= libisp_isi_drv_S5K4EC
 
 #LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw

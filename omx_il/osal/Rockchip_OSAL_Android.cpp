@@ -30,7 +30,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 
-#include <system/window.h>
+//#include <system/window.h>
 #include <ui/GraphicBufferMapper.h>
 #include <ui/Rect.h>
 #include <ui/GraphicBuffer.h>

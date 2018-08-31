@@ -52,6 +52,7 @@ LOCAL_C_INCLUDES := $(ROCKCHIP_OMX_INC)/khronos \
 	$(TOP)/frameworks/native/include/media/hardware \
 	$(TOP)/frameworks/native/include/media/openmax \
 	$(TOP)/frameworks/native/libs/arect/include \
+	$(TOP)/frameworks/native/libs/nativebase/include \
         $(TOP)/system/core/libion/include \
         $(TOP)/system/core/libion/kernel-headers \
 	$(TOP)/hardware/rockchip/libgralloc \

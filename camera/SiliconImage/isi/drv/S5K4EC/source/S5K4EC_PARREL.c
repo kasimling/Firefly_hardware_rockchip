@@ -2806,7 +2806,7 @@ static RESULT S5K4EC_IsiMdiFocusSet
                              pS5K4ECCtx->IsiCtx.SlaveAfAddress,
                              0,
                              pS5K4ECCtx->IsiCtx.NrOfAfAddressBytes,
-                             data,
+                             (uint8_t *)&data,
                              2U );
     RETURN_RESULT_IF_DIFFERENT( RET_SUCCESS, result );
 	TRACE( S5K4EC_INFO, "%s:omy 2 (enter)\n", __FUNCTION__);

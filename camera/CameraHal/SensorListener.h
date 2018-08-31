@@ -25,7 +25,7 @@
 #define ANDROID_CAMERA_HARDWARE_SENSOR_LISTENER_H
 
 #include <android/sensor.h>
-#include <gui/Sensor.h>
+//#include <gui/Sensor.h>
 #include <gui/SensorManager.h>
 #include <gui/SensorEventQueue.h>
 #include <utils/Looper.h>
